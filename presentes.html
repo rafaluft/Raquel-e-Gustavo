@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="verdigris">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lista de Presentes · Raquel &amp; Gustavo</title>
+<meta name="description" content="Raquel &amp; Gustavo — 31 de janeiro de 2027. Lista de presentes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Cinzel:wght@400;500;600&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --radius: 2px;
+  --bg:        #14100D;
+  --bg-panel:  #1C1611;
+  --bg-card:   #201A14;
+  --ink:       #F4EBDD;
+  --ink-soft:  #D9CBB8;
+  --ink-mute:  #A6957F;
+  --copper:    #C1794C;
+  --copper-lt: #E2A873;
+  --copper-dp: #7C4322;
+  --gold:      #D6B15E;
+  --gold-soft: #EBD8A6;
+  --line:      rgba(214,177,94,0.28);
+  --line-dim:  rgba(214,177,94,0.14);
+  --shadow:    0 30px 60px -20px rgba(0,0,0,0.65);
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-caps:    "Cinzel", ui-serif, Georgia, serif;
+  --font-body:    "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  --opsz-display: "opsz" 60;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-variation-settings: var(--opsz-display);
+  font-weight: 400;
+  margin: 0;
+  color: var(--ink);
+}
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+.eyebrow {
+  font-family: var(--font-caps);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0;
+}
+
+.rule-short {
+  width: 3.5rem;
+  height: 1px;
+  background: var(--copper);
+  margin: 1.5rem auto 0;
+}
+
+.wrap {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+::selection { background: var(--copper); color: var(--bg); }
+
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ---------- Cabeçalho simples ---------- */
+.page-header {
+  padding: 2.5rem 0 1rem;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(193,121,76,0.14), transparent 60%),
+    var(--bg);
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--copper-lt);
+  transition: color 200ms ease;
+}
+.back-link:hover { color: var(--gold); }
+.page-header h1 {
+  margin-top: 1.1rem;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-style: italic;
+}
+.page-header p.body {
+  margin: 1.5rem auto 0;
+  max-width: 34rem;
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+/* ---------- Presentes ---------- */
+.section-presentes {
+  padding: 3rem 0 5rem;
+  background: var(--bg);
+  position: relative;
+}
+
+.gift-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+@media (min-width: 640px) { .gift-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .gift-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.gift-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--line-dim);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 250ms ease, transform 250ms ease;
+}
+.gift-card:hover { border-color: var(--copper); transform: translateY(-3px); }
+.gift-frame {
+  position: absolute;
+  inset: 7px;
+  border: 1px solid transparent;
+  pointer-events: none;
+  transition: border-color 250ms ease;
+}
+.gift-card:hover .gift-frame { border-color: var(--line); }
+
+.gift-visual {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--bg-panel);
+}
+.gift-visual img { width: 100%; height: 100%; object-fit: cover; display: block; filter: sepia(0.18) saturate(1.05); transition: transform 500ms ease; }
+.gift-card:hover .gift-visual img { transform: scale(1.045); }
+.gift-visual.img-fallback::after {
+  content: "R & G";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-style: italic; font-size: 1.3rem; color: var(--ink-mute);
+  background: var(--bg-panel);
+}
+.quota-tag {
+  position: absolute; top: 0.75rem; left: 0.75rem;
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+  background: rgba(20,16,13,0.82); color: var(--gold-soft); border: 1px solid var(--line);
+}
+
+.gift-body { padding: 1.5rem 1.4rem 1.6rem; display: flex; flex-direction: column; flex: 1; }
+.gift-cat { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--copper-lt); }
+.gift-name { margin-top: 0.6rem; font-size: 1.3rem; font-style: italic; }
+.gift-desc { margin-top: 0.65rem; font-size: 0.82rem; line-height: 1.65; color: var(--ink-mute); flex: 1; }
+.gift-footer { margin-top: 1.35rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.gift-price { font-family: var(--font-display); font-size: 1.15rem; color: var(--gold-soft); }
+.gift-price small { display: block; font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute); }
+.btn-gift {
+  padding: 0.6rem 1.1rem;
+  font-family: var(--font-caps); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--bg); background: var(--copper); border: 1px solid var(--copper);
+  cursor: pointer; transition: all 220ms ease; white-space: nowrap;
+}
+.btn-gift:hover { background: transparent; color: var(--copper-lt); }
+
+/* ---------- Modal presentear ---------- */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 90;
+  background: rgba(10,8,6,0.82);
+  display: none; align-items: center; justify-content: center;
+  padding: 1.5rem;
+}
+.modal-overlay.is-open { display: flex; }
+.modal-card {
+  position: relative;
+  width: 100%; max-width: 26rem;
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 2.5rem 2rem 2.25rem;
+  text-align: center;
+}
+.modal-card::before { content: ""; position: absolute; inset: 8px; border: 1px solid var(--line-dim); pointer-events: none; }
+.modal-close {
+  position: absolute; top: 0.9rem; right: 0.9rem;
+  background: none; border: 0; cursor: pointer; color: var(--ink-mute);
+  font-size: 1rem; line-height: 1; padding: 0.4rem;
+}
+.modal-close:hover { color: var(--gold); }
+.modal-title { margin-top: 0.75rem; font-size: 1.5rem; font-style: italic; }
+.modal-price { margin-top: 0.5rem; font-family: var(--font-mono); font-size: 0.78rem; color: var(--gold-soft); letter-spacing: 0.06em; }
+.modal-desc { margin-top: 1rem; font-size: 0.85rem; line-height: 1.75; color: var(--ink-mute); }
+.modal-form { margin-top: 1.5rem; text-align: left; }
+.modal-form label { display: block; font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 0.5rem; }
+.modal-form input {
+  width: 100%; padding: 0.75rem 0; background: transparent; border: 0; border-bottom: 1px solid var(--line);
+  font-family: var(--font-body); font-size: 0.92rem; color: var(--ink);
+}
+.modal-form input:focus { border-color: var(--gold); }
+.btn-modal-confirm {
+  margin-top: 1.5rem;
+  width: 100%; padding: 0.85rem;
+  font-family: var(--font-caps); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--bg); background: var(--gold); border: 1px solid var(--gold);
+  cursor: pointer; transition: filter 200ms ease;
+}
+.btn-modal-confirm:hover { filter: brightness(1.12); }
+.modal-note { margin-top: 1rem; font-size: 0.66rem; color: var(--ink-mute); }
+.thanks-icon { width: 2.75rem; height: 2.75rem; margin: 0 auto; }
+.thanks-title { margin-top: 1.1rem; font-size: 1.4rem; font-style: italic; }
+.thanks-text { margin-top: 0.85rem; font-size: 0.85rem; line-height: 1.75; color: var(--ink-mute); }
+
+.page-footer {
+  padding: 2.5rem 0 3rem;
+  text-align: center;
+  border-top: 1px solid var(--line-dim);
+}
+.page-footer p {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="wrap">
+    <a class="back-link" href="Raquel_Gustavo_Site_Editado_v15.html#presentes">&#8592; Voltar para o site</a>
+    <p class="eyebrow" style="margin-top:1.5rem;">Com carinho</p>
+    <h1>Nossa lista de presentes</h1>
+    <div class="rule-short"></div>
+    <p class="body">
+      Sua presença já é o maior presente. Se quiser nos ajudar a começar essa
+      nova fase, deixamos abaixo algumas experiências e itens que sonhamos ter
+      juntos. Você pode contribuir com o valor cheio ou só uma parte — tudo é
+      recebido com muita gratidão.
+    </p>
+  </div>
+</header>
+
+<section id="presentes" class="section-presentes">
+  <div class="wrap">
+
+    <div class="gift-grid" id="giftGrid">
+
+      <div class="gift-card" data-name="Lua de mel — Grécia" data-price="R$ 550,00" data-desc="Uma cota para os dias que vamos passar nas ilhas gregas, logo depois da festa.">
+        <div class="gift-frame"></div>
+        <div class="gift-visual">
+          <span class="quota-tag">Por cota</span>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Oia%20Santorini%20Greece.jpg?width=700" alt="Vista de Oia, em Santorini, Grécia" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
+        </div>
+        <div class="gift-body">
+          <p class="gift-cat">Lua de mel</p>
+          <h3 class="gift-name">Dias em Santorini</h3>
+          <p class="gift-desc">Uma cota para os pores do sol em Oia e o azul do mar Egeu, sem pressa nenhuma.</p>
+          <div class="gift-footer">
+            <p class="gift-price"><small>Cota</small>R$ 550,00</p>
+            <button class="btn-gift" data-open-modal type="button">Presentear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gift-card" data-name="Passagens aéreas" data-price="R$ 1.200,00" data-desc="Uma cota para ajudar a pagar as passagens da nossa lua de mel.">
+        <div class="gift-frame"></div>
+        <div class="gift-visual">
+          <span class="quota-tag">Por cota</span>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Airplane%20in%20flight.jpg?width=700" alt="Avião voando no céu" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
+        </div>
+        <div class="gift-body">
+          <p class="gift-cat">Lua de mel</p>
+          <h3 class="gift-name">Passagem aérea</h3>
+          <p class="gift-desc">Uma cota para as passagens — o primeiro passo de uma viagem que estamos sonhando há um tempo.</p>
+          <div class="gift-footer">
+            <p class="gift-price"><small>Cota</small>R$ 1.200,00</p>
+            <button class="btn-gift" data-open-modal type="button">Presentear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gift-card" data-name="Adega de vinhos" data-price="R$ 420,00" data-desc="Uma garrafa especial para começar a nossa adega, para os brindes das boas ocasiões.">
+        <div class="gift-frame"></div>
+        <div class="gift-visual">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Wine%20cellar.jpg?width=700" alt="Adega de vinhos" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
+        </div>
+        <div class="gift-body">
+          <p class="gift-cat">Casa</p>
+          <h3 class="gift-name">Rótulo para a adega</h3>
+          <p class="gift-desc">Ajude a começar a nossa pequena coleção de vinhos, para abrir aos poucos e com calma.</p>
+          <div class="gift-footer">
+            <p class="gift-price"><small>Valor</small>R$ 420,00</p>
+            <button class="btn-gift" data-open-modal type="button">Presentear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gift-card" data-name="Jantar a dois" data-price="R$ 380,00" data-desc="Um jantar especial para comemorarmos o primeiro mês de casados.">
+        <div class="gift-frame"></div>
+        <div class="gift-visual">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Set%20dinner%20table.jpg?width=700" alt="Mesa posta para jantar romântico" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
+        </div>
+        <div class="gift-body">
+          <p class="gift-cat">Experiência</p>
+          <h3 class="gift-name">Jantar a dois</h3>
+          <p class="gift-desc">Uma noite calma, só nós dois, para celebrar o começo dessa fase nova.</p>
+          <div class="gift-footer">
+            <p class="gift-price"><small>Valor</small>R$ 380,00</p>
+            <button class="btn-gift" data-open-modal type="button">Presentear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gift-card" data-name="Espumante para o brinde" data-price="R$ 260,00" data-desc="O espumante que vamos abrir sozinhos, logo depois da festa.">
+        <div class="gift-frame"></div>
+        <div class="gift-visual">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Toasting%20Champagne.jpg?width=700" alt="Taças de espumante para brinde" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
+        </div>
+        <div class="gift-body">
+          <p class="gift-cat">Brinde</p>
+          <h3 class="gift-name">Espumante especial</h3>
+          <p class="gift-desc">Para o brinde só nosso, depois que todo mundo já tiver ido embora da festa.</p>
+          <div class="gift-footer">
+            <p class="gift-price"><small>Valor</small>R$ 260,00</p>
+            <button class="btn-gift" data-open-modal type="button">Presentear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gift-card" data-name="Jogo de cama king size" data-price="R$ 460,00" data-desc="Um jogo de cama king size para o nosso quarto de casados.">
+        <div class="gift-frame"></div>
+        <div class="gift-visual">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bed%20in%20Seattle%20hotel.jpg?width=700" alt="Cama com roupa de cama branca" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
+        </div>
+        <div class="gift-body">
+          <p class="gift-cat">Casa</p>
+          <h3 class="gift-name">Roupa de cama king</h3>
+          <p class="gift-desc">Um jogo de cama novo e macio, para estrear o quarto do casal com estilo.</p>
+          <div class="gift-footer">
+            <p class="gift-price"><small>Valor</small>R$ 460,00</p>
+            <button class="btn-gift" data-open-modal type="button">Presentear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gift-card" data-name="Robô aspirador" data-price="R$ 1.400,00" data-desc="Um robô aspirador para ajudar na limpeza da casa nova.">
+        <div class="gift-frame"></div>
+        <div class="gift-visual">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Xiaomi%20robot%20vacuum.jpg?width=700" alt="Robô aspirador" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
+        </div>
+        <div class="gift-body">
+          <p class="gift-cat">Casa</p>
+          <h3 class="gift-name">Robô aspirador</h3>
+          <p class="gift-desc">Pra casa nova ficar em ordem mesmo nos dias mais corridos.</p>
+          <div class="gift-footer">
+            <p class="gift-price"><small>Valor</small>R$ 1.400,00</p>
+            <button class="btn-gift" data-open-modal type="button">Presentear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gift-card" data-name="Churrasqueira a gás" data-price="R$ 860,00" data-desc="Uma churrasqueira a gás para os primeiros churrascos de casados.">
+        <div class="gift-frame"></div>
+        <div class="gift-visual">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gasbbq.JPG?width=700" alt="Churrasqueira a gás" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
+        </div>
+        <div class="gift-body">
+          <p class="gift-cat">Casa</p>
+          <h3 class="gift-name">Churrasqueira a gás</h3>
+          <p class="gift-desc">Para os primeiros churrascos recebendo a família e os amigos na casa nova.</p>
+          <div class="gift-footer">
+            <p class="gift-price"><small>Valor</small>R$ 860,00</p>
+            <button class="btn-gift" data-open-modal type="button">Presentear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gift-card" data-name="Cafeteira espresso" data-price="R$ 700,00" data-desc="Uma cafeteira espresso para o café da manhã do casal.">
+        <div class="gift-frame"></div>
+        <div class="gift-visual">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/SIEMENS-EQ.3-ESPRESSO-COFFEE-MACHINE.jpg?width=700" alt="Cafeteira espresso" loading="lazy" onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
+        </div>
+        <div class="gift-body">
+          <p class="gift-cat">Casa</p>
+          <h3 class="gift-name">Cafeteira espresso</h3>
+          <p class="gift-desc">Para começar bem o dia, com um café fresquinho antes de sair de casa.</p>
+          <div class="gift-footer">
+            <p class="gift-price"><small>Valor</small>R$ 700,00</p>
+            <button class="btn-gift" data-open-modal type="button">Presentear</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="page-footer">
+  <p>Raquel &amp; Gustavo — 31 . 01 . 2027</p>
+</footer>
+
+<!-- ---------- Modal presentear ---------- -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-card" id="modalCard">
+    <button class="modal-close" id="modalClose" type="button" aria-label="Fechar">✕</button>
+
+    <div id="modalStepForm">
+      <p class="eyebrow">Presentear</p>
+      <h3 class="modal-title" id="modalGiftName">—</h3>
+      <p class="modal-price" id="modalGiftPrice">—</p>
+      <p class="modal-desc" id="modalGiftDesc">—</p>
+
+      <form class="modal-form" id="modalForm">
+        <label for="modalNome">Seu nome</label>
+        <input type="text" id="modalNome" placeholder="Como você quer ser identificado" required />
+        <button type="submit" class="btn-modal-confirm">Confirmar presente</button>
+      </form>
+      <p class="modal-note">Simulação — nenhum pagamento é processado nesta página.</p>
+    </div>
+
+    <div id="modalStepThanks" style="display:none;">
+      <svg class="thanks-icon" viewBox="0 0 64 64" fill="none" stroke="var(--gold)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="32" r="22" />
+        <path d="M22 33l7 7 14-16" />
+      </svg>
+      <h3 class="thanks-title">Muito obrigado!</h3>
+      <p class="thanks-text" id="modalThanksText">—</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- Modal de presentear ----------
+  (function () {
+    const overlay = document.getElementById('modalOverlay');
+    const closeBtn = document.getElementById('modalClose');
+    const stepForm = document.getElementById('modalStepForm');
+    const stepThanks = document.getElementById('modalStepThanks');
+    const form = document.getElementById('modalForm');
+    const nomeInput = document.getElementById('modalNome');
+
+    const nameEl = document.getElementById('modalGiftName');
+    const priceEl = document.getElementById('modalGiftPrice');
+    const descEl = document.getElementById('modalGiftDesc');
+    const thanksEl = document.getElementById('modalThanksText');
+
+    let currentGift = null;
+
+    function hideSteps() {
+      stepForm.style.display = 'none';
+      stepThanks.style.display = 'none';
+    }
+
+    function openModal(card) {
+      currentGift = {
+        name: card.dataset.name,
+        price: card.dataset.price,
+        desc: card.dataset.desc
+      };
+      hideSteps();
+      nameEl.textContent = currentGift.name;
+      priceEl.textContent = currentGift.price;
+      descEl.textContent = currentGift.desc;
+      nomeInput.value = '';
+      stepForm.style.display = 'block';
+      overlay.classList.add('is-open');
+    }
+
+    function closeModal() { overlay.classList.remove('is-open'); }
+
+    document.querySelectorAll('#giftGrid [data-open-modal]').forEach((btn) => {
+      btn.addEventListener('click', () => openModal(btn.closest('.gift-card')));
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nome = nomeInput.value.trim() || 'Convidado';
+      thanksEl.textContent = `${nome}, seu presente "${currentGift.name}" (${currentGift.price}) foi registrado com muito carinho. Mal podemos esperar para aproveitar!`;
+      hideSteps();
+      stepThanks.style.display = 'block';
+    });
+  })();
+</script>
+
+</body>
+</html>
